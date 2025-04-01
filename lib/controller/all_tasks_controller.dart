@@ -19,13 +19,8 @@ class AllTasksController with ChangeNotifier {
   }
 
   Future deleteRecord(int id) async {
-    id++;
     await DatabaseHelper.deleteRecord(id);
     log("deleted record");
     notifyListeners();
-  }
-
-  goDelete(){
-    log("test");
   }
 }

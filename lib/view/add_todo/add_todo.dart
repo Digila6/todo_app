@@ -48,6 +48,7 @@ class _AddTodoState extends State<AddTodo> {
                     ),
                     TextFormField(
                       controller: provider.taskTitleController,
+                      textCapitalization: TextCapitalization.sentences,
                       minLines: 1,
                       maxLines: 4,
                       validator: (text) => value.checktaskTitle(text),
@@ -132,6 +133,7 @@ class _AddTodoState extends State<AddTodo> {
                       minLines: 3,
                       maxLines: 6,
                       controller: notes,
+                      textCapitalization: TextCapitalization.sentences,
                       //   validator: (text) => value.checktaskNotes(text),
                       onTap: () {
                         notes.clear();

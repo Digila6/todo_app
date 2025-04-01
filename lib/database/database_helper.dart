@@ -146,7 +146,7 @@ class DatabaseHelper {
   //fetch records in the latest date
   static getLatestRecord() async {
     List<Map<String, dynamic>> latestList = await database.rawQuery(
-      "SELECT * FROM Note ORDER BY date DESC",
+      "SELECT * FROM Note ORDER BY date ASC",
     );
     return latestList.isNotEmpty ? latestList : [];
   }

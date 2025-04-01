@@ -16,7 +16,7 @@ class AllTasks extends StatefulWidget {
 class _AllTasksState extends State<AllTasks> {
   @override
   void initState() {
-    // TODO: implement initState
+  
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timestamp) async {
       AllTasksController providerRead = context.read<AllTasksController>();
@@ -28,7 +28,7 @@ class _AllTasksState extends State<AllTasks> {
 
   @override
   Widget build(BuildContext context) {
-    // AllTasksController provider = context.watch<AllTasksController>();
+   
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -128,13 +128,16 @@ class _AllTasksState extends State<AllTasks> {
                                   IconButton(
                                     onPressed: () {
                                       log("message");
+                                       int nindex =
+                                          AllTasksController
+                                              .allTasks?[index]["id"];
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                           builder:
                                               (context) => EditTask(
                                                 AllTasksController.allTasks,
-                                                index,
+                                                nindex,
                                               ),
                                         ),
                                       );
@@ -146,8 +149,12 @@ class _AllTasksState extends State<AllTasks> {
                                   ),
                                   IconButton(
                                     onPressed: () async {
-                                      //  log("delete id $index");
-                                      await value.deleteRecord(index);
+                                      log("delete id $index");
+                                      int nindex =
+                                          AllTasksController
+                                              .allTasks?[index]["id"];
+                                      log("$nindex");
+                                      await value.deleteRecord(nindex);
                                       await value.getAllData();
                                     },
                                     icon: Icon(

@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:to_do/controller/all_tasks_controller.dart';
 import 'package:to_do/controller/edit_task_controller.dart';
 import 'package:to_do/global_widgets/curved_btn.dart';
 import 'package:to_do/util/constants/color_constants.dart';
@@ -61,6 +62,7 @@ class _EditTaskState extends State<EditTask> {
                         ),
                         TextFormField(
                           controller: value.taskTitleController,
+                          textCapitalization: TextCapitalization.sentences,
                           minLines: 1,
                           maxLines: 4,
                           validator: (text) => value.checktaskTitle(text),
@@ -143,6 +145,7 @@ class _EditTaskState extends State<EditTask> {
                           minLines: 3,
                           maxLines: 6,
                           controller: notes,
+                          textCapitalization: TextCapitalization.sentences,
 
                           onTap: () {
                             notes.clear();
@@ -176,7 +179,7 @@ class _EditTaskState extends State<EditTask> {
                                         // ); // Simulate DB call
                                         //  await AddTodoController.initDb();
                                         log("update :");
-                                       
+                                        log("date updated: ${value.date}");
                                         await value.updateTaskToDB(
                                           value.taskTitle,
                                           value.notes,
@@ -196,9 +199,11 @@ class _EditTaskState extends State<EditTask> {
                                             ),
                                           ),
                                         );
-                                        value.resetControllers();
-                                        
 
+                                        //  value.resetControllers();
+                                        context
+                                            .read<AllTasksController>()
+                                            .getAllData();
                                         // ignore: use_build_context_synchronously
                                         Navigator.pop(context);
                                       }

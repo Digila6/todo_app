@@ -43,6 +43,8 @@ class EditTaskController with ChangeNotifier {
       date = DateFormat('dd-MM-yyyy').format(pickDate); // Format date
       dateController.text = date; // Update TextField
       debugPrint("Selected Date: $date");
+    } else if (dateController.text.isNotEmpty) {
+      date = dateController.text;
     } else {
       dateController.text = "";
     }
@@ -96,7 +98,10 @@ class EditTaskController with ChangeNotifier {
   String? checkDate(String? value) {
     if (value == null || value.trim().isEmpty) {
       return "Date cannot be empty!";
+    } else {
+      date = dateController.text;
     }
+
     return null;
   }
 
@@ -120,7 +125,7 @@ class EditTaskController with ChangeNotifier {
     int id,
   ) async {
     log("update fn");
-    id++;
+    id;
     await DatabaseHelper.updateRecord(
       task: taskTitle,
       notes: notes,
@@ -140,6 +145,8 @@ class EditTaskController with ChangeNotifier {
   }
 
   getTaskOfId(dynamic list, int id) {
+    log("$id");
+    id--;
     fetchtask = list[id]["task"];
     fetchnotes = list[id]["note"];
     fetchdate = list[id]["date"];

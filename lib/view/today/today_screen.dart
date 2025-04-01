@@ -25,6 +25,7 @@ class _TodayScreenState extends State<TodayScreen> {
   @override
   Widget build(BuildContext context) {
     TodayController provider = context.watch<TodayController>();
+    bool isbordered = true;
 
     return Scaffold(
       body: Padding(
@@ -34,12 +35,34 @@ class _TodayScreenState extends State<TodayScreen> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Center(
+              child: Column(
+                spacing: 10,
+                children: [
+                  CircleAvatar(
+                    radius: 50, // Size of the circle
+                    backgroundImage: NetworkImage(
+                      'https://images.pexels.com/photos/9931681/pexels-photo-9931681.jpeg?auto=compress&cs=tinysrgb&w=600',
+                    ),
+                  ),
+                  Text(
+                    "John Samuel",
+                    style: TextStyle(
+                      fontFamily: "Lato",
+                      fontSize: 20,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ],
+              ),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 // to-do btn
                 InkWell(
                   onTap: () async {
+                    isbordered = true;
                     provider.showLoading();
                     provider.getData();
                     await Future.delayed(Duration(seconds: 2));
@@ -49,7 +72,14 @@ class _TodayScreenState extends State<TodayScreen> {
                     constraints: BoxConstraints(minHeight: 100, minWidth: 110),
                     padding: EdgeInsets.all(20),
                     decoration: BoxDecoration(
-                      color: Colors.red.shade200,
+                      // color: Colors.red.shade200,
+                      border:
+                          isbordered == false
+                              ? null
+                              : Border.all(
+                                color: Colors.deepPurpleAccent,
+                                width: 2.0,
+                              ),
                       borderRadius: BorderRadius.circular(20),
                       boxShadow: [
                         BoxShadow(
@@ -99,11 +129,15 @@ class _TodayScreenState extends State<TodayScreen> {
               ],
             ),
 
-            SizedBox(height: 30),
+            SizedBox(height: 10),
             // task list UI
             Text(
               "Todays task",
-              style: TextStyle(fontFamily: "Lato", fontSize: 16),
+              style: TextStyle(
+                fontFamily: "Lato",
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
             ),
 
             Visibility(
@@ -143,6 +177,10 @@ class _TodayScreenState extends State<TodayScreen> {
                                 Expanded(
                                   child: Text(
                                     provider.todayTaskList[index]["task"],
+                                    style: TextStyle(
+                                      fontFamily: "Lato",
+                                      fontWeight: FontWeight.w600,
+                                    ),
                                   ),
                                 ),
 
@@ -162,7 +200,7 @@ class _TodayScreenState extends State<TodayScreen> {
                                           bg: Colors.green,
                                           txtolor: Colors.white,
                                           vertical: 5,
-                                          horizontal: 5,
+                                          horizontal: 7,
                                           onClick: () async {
                                             //  value.showLoading();
 
@@ -179,6 +217,7 @@ class _TodayScreenState extends State<TodayScreen> {
                                         ),
                                   ),
                                 ),
+                                SizedBox(width: 17),
                                 //  Icon(Icons.)
                               ],
                             ),
@@ -186,7 +225,15 @@ class _TodayScreenState extends State<TodayScreen> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 SizedBox(width: 15),
-                                Text(provider.checkCategoryForIcon(index)),
+                                Text(
+                                  provider.checkCategoryForIcon(index),
+                                  style: TextStyle(
+                                    fontFamily: "Lato",
+                                    fontStyle: FontStyle.italic,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
                                 Spacer(),
                                 InkWell(
                                   onTap: () {
@@ -196,10 +243,16 @@ class _TodayScreenState extends State<TodayScreen> {
                                       index,
                                     );
                                   },
-                                  child: Text(
-                                    "view",
-                                    style: TextStyle(
-                                      color: Colors.deepPurpleAccent,
+                                  child: Card(
+                                    elevation: 2.5,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        "View",
+                                        style: TextStyle(
+                                          color: Colors.deepPurple,
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ),
