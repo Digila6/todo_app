@@ -9,9 +9,10 @@ import 'package:to_do/util/constants/color_constants.dart';
 
 class EditTask extends StatefulWidget {
   final List<Map<dynamic, dynamic>>? allTask;
-  final int index;
+  final int id;
+  final index;
 
-  const EditTask(this.allTask, this.index, {super.key});
+  const EditTask(this.allTask, this.id, this.index, {super.key});
 
   @override
   State<EditTask> createState() => _EditTaskState();
@@ -23,9 +24,10 @@ class _EditTaskState extends State<EditTask> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timestamp) async {
       final provider = context.read<EditTaskController>();
-      provider.getTaskOfId(widget.allTask, widget.index);
+      provider.getTaskOfId(widget.allTask, widget.id, widget.index);
 
       Future.delayed(Duration(milliseconds: 300), () {
+        log("edit class init: ${widget.id}");
         if (provider.categoryCheckboxIndex != null) {
           provider.scrollToSelected(provider.categoryCheckboxIndex!);
         }
@@ -168,7 +170,7 @@ class _EditTaskState extends State<EditTask> {
                                     btnText: "Submit",
                                     horizontal: 10,
                                     vertical: 4,
-                                    bg: ColorConstants.primary,
+                                    bg: Colors.deepPurpleAccent,
                                     onClick: () async {
                                       if (provider.validateForm(formKey)) {
                                         value.showLoading();
@@ -185,7 +187,7 @@ class _EditTaskState extends State<EditTask> {
                                           value.notes,
                                           value.date,
                                           value.categoryValue,
-                                          widget.index,
+                                          widget.id,
                                         );
 
                                         value.hideLoading();

@@ -144,13 +144,14 @@ class EditTaskController with ChangeNotifier {
     log("Controllers cleared");
   }
 
-  getTaskOfId(dynamic list, int id) {
+  getTaskOfId(dynamic list, int id, index) {
     log("$id");
-    id--;
-    fetchtask = list[id]["task"];
-    fetchnotes = list[id]["note"];
-    fetchdate = list[id]["date"];
-    fetchcategoryValue = list[id]["category"];
+   // id--;
+    fetchtask = list[index]["task"];
+    log("$id");
+    fetchnotes = list[index]["note"];
+    fetchdate = list[index]["date"];
+    fetchcategoryValue = list[index]["category"];
 
     taskTitleController.text = fetchtask;
     taskNoteController.text = fetchnotes;

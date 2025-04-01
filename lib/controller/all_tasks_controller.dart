@@ -14,7 +14,6 @@ class AllTasksController with ChangeNotifier {
 
   Future<void> getAllData() async {
     allTasks = await DatabaseHelper.fetchDataFromDb();
-
     notifyListeners();
   }
 

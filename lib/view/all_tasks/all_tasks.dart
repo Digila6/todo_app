@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_interpolation_to_compose_strings
+
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -22,7 +24,7 @@ class _AllTasksState extends State<AllTasks> {
       AllTasksController providerRead = context.read<AllTasksController>();
       // providerRead.getAllTasksLatestOrder();
       await DatabaseHelper.initDb();
-      await providerRead.getAllData();
+      await providerRead.getAllTasksLatestOrder();
     });
   }
 
@@ -127,17 +129,20 @@ class _AllTasksState extends State<AllTasks> {
                                   Spacer(),
                                   IconButton(
                                     onPressed: () {
-                                      log("message");
-                                       int nindex =
+                                    //  log("message");
+                                      
+                                    //  log("$index");
+                                       int id =
                                           AllTasksController
                                               .allTasks?[index]["id"];
+                                              log("new index: $id");
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                           builder:
                                               (context) => EditTask(
                                                 AllTasksController.allTasks,
-                                                nindex,
+                                                id,index
                                               ),
                                         ),
                                       );

@@ -92,7 +92,24 @@ class _TodayScreenState extends State<TodayScreen> {
                     child: Column(
                       spacing: 20,
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: [Text("To do"), Text("${provider.todoCount}")],
+                      children: [
+                        Text(
+                          "To do",
+                          style: TextStyle(
+                            fontFamily: "Lato",
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          "${provider.todoCount}",
+                          style: TextStyle(
+                            fontFamily: "Lato",
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -106,7 +123,7 @@ class _TodayScreenState extends State<TodayScreen> {
                     constraints: BoxConstraints(minHeight: 100, minWidth: 100),
                     padding: EdgeInsets.all(20),
                     decoration: BoxDecoration(
-                      color: Colors.green.shade200,
+                      color: Colors.white,
                       borderRadius: BorderRadius.circular(20),
                       boxShadow: [
                         BoxShadow(
@@ -120,8 +137,22 @@ class _TodayScreenState extends State<TodayScreen> {
                       spacing: 20,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("Completed"),
-                        Text("${provider.completedCount}"),
+                        Text(
+                          "Completed",
+                          style: TextStyle(
+                            fontFamily: "Lato",
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          "${provider.completedCount}",
+                          style: TextStyle(
+                            fontFamily: "Lato",
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ],
                     ),
                   ),

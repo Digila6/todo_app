@@ -8,9 +8,9 @@ import 'package:to_do/controller/today_controller.dart';
 import 'package:to_do/database/database_helper.dart';
 import 'package:to_do/view/home/home.dart';
 
-Future <void> main() async {
-   WidgetsFlutterBinding.ensureInitialized();
-   
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   await DatabaseHelper.initDb();
 
   runApp(MyApp());
@@ -27,9 +27,24 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => AddTodoController()),
         ChangeNotifierProvider(create: (context) => TodayController()),
         ChangeNotifierProvider(create: (context) => AllTasksController()),
-         ChangeNotifierProvider(create: (context) => EditTaskController()),
+        ChangeNotifierProvider(create: (context) => EditTaskController()),
       ],
-      child: MaterialApp(debugShowCheckedModeBanner: false, home: Home()),
+      child: MaterialApp(
+        theme: ThemeData(
+          appBarTheme: AppBarTheme(
+            toolbarHeight: 80,
+            backgroundColor: Colors.deepPurpleAccent,
+            titleTextStyle: TextStyle(
+              color: Colors.white,
+              fontFamily: "Lato",
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+        debugShowCheckedModeBanner: false,
+        home: Home(),
+      ),
     );
   }
 }

@@ -156,7 +156,7 @@ class _AddTodoState extends State<AddTodo> {
                                 btnText: "Add task",
                                 horizontal: 5,
                                 vertical: 5,
-                                bg: ColorConstants.primary,
+                                bg: Colors.deepPurpleAccent,
                                 onClick: () async {
                                   if (provider.validateForm(formKey)) {
                                     value.showLoading();

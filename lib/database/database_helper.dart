@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
+import 'package:intl/intl.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:sqflite_common_ffi_web/sqflite_ffi_web.dart';
@@ -93,9 +94,10 @@ class DatabaseHelper {
     return todoList;
   }
 
-  static Future<List<Map>> fetchDataFromDbTodo() async {
+  static Future<List<Map>> fetchDataFromDbTodo(String currentdate) async {
     todoList = await database.rawQuery(
-      "SELECT * FROM Note WHERE status = 'todo'",
+      "SELECT * FROM Note WHERE status = 'todo'AND date LIKE ?",
+      [currentdate],
     );
     log(todoList.toString());
     return todoList;
@@ -110,9 +112,11 @@ class DatabaseHelper {
     return todoList;
   }
 
-  static Future<List<Map>> fetchDataFromDbCompl() async {
+  static Future<List<Map>> fetchDataFromDbCompl(String currentdate) async {
+    
     todoList = await database.rawQuery(
-      "SELECT * FROM Note WHERE status = 'completed'",
+      "SELECT * FROM Note WHERE status = 'completed'AND date LIKE ?",
+      [currentdate],
     );
     log(todoList.toString());
     return todoList;
@@ -126,11 +130,12 @@ class DatabaseHelper {
   }
 
   static Future<void> getCount() async {
+    String currentdate= DateFormat('dd-MM-yyyy').format(DateTime.now());
     List<Map<String, dynamic>> taskList = await database.rawQuery(
-      "SELECT COUNT(*) as count FROM Note WHERE status = 'todo'",
+      "SELECT COUNT(*) as count FROM Note WHERE status = 'todo'AND date LIKE ?",[currentdate]
     );
     List<Map<String, dynamic>> taskComplList = await database.rawQuery(
-      "SELECT COUNT(*) as count FROM Note WHERE status = 'completed'",
+      "SELECT COUNT(*) as count FROM Note WHERE status = 'completed'AND date LIKE ?",[currentdate]
     );
     todoCOunt =
         taskList.isNotEmpty && taskList.first["count"] != null

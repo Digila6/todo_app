@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import 'package:to_do/controller/add_todo_controller.dart';
 import 'package:to_do/database/database_helper.dart';
@@ -8,6 +9,7 @@ import 'package:to_do/global_widgets/curved_btn.dart';
 
 class TodayController with ChangeNotifier {
   List<Map> todayTaskList = [];
+  List<Map> todayTaskListComp = [];
 
   //checkbox updation
   bool? checkboxFlag;
@@ -20,18 +22,26 @@ class TodayController with ChangeNotifier {
   int completedCount = 0;
 
   Future<void> getData() async {
+    String currentdate= DateFormat('dd-MM-yyyy').format(DateTime.now());
    await  DatabaseHelper.initDb();
-    todayTaskList = await DatabaseHelper.fetchDataFromDbTodo();
-    if(todayTaskList.isEmpty){
-      
-    }
+    todayTaskList = await DatabaseHelper.fetchDataFromDbTodo(currentdate);
+    // if(todayTaskList.isEmpty){
+    //   todoCount=0;
+    // }
+    // todoCount=todayTaskList.length;
     
     notifyListeners();
   }
 
   Future<void> getDataCompleted() async {
+    String currentdate= DateFormat('dd-MM-yyyy').format(DateTime.now());
     await DatabaseHelper.initDb();
-    todayTaskList = await DatabaseHelper.fetchDataFromDbCompl();
+    todayTaskList = await DatabaseHelper.fetchDataFromDbCompl(currentdate);
+      todayTaskListComp = await DatabaseHelper.fetchDataFromDbCompl(currentdate);
+    // if(todayTaskList.isEmpty){
+    //   completedCount=0;
+    // }
+    // completedCount=todayTaskListComp.length;
     notifyListeners();
   }
 
@@ -83,9 +93,11 @@ class TodayController with ChangeNotifier {
 
   Future<void> getTodoCount() async {
     log("task count fn called");
-    await DatabaseHelper.getCount();
+    todoCount=todayTaskList.length;
+    completedCount=todayTaskList.length;
+     await DatabaseHelper.getCount();
     todoCount = DatabaseHelper.todoCOunt;
-    completedCount = DatabaseHelper.completedCount;
+     completedCount = DatabaseHelper.completedCount;
     notifyListeners();
   }
 
